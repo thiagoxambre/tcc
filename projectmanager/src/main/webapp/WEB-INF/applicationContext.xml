@@ -25,20 +25,26 @@
 
     <!-- Session Factory Declaration -->
     <bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="DataSource" />
-        <property name="annotatedClasses">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="br.com.projectmanager.model" />
+		<property name="annotatedClasses">
             <list>
                 <value>br.com.projectmanager.model.Projeto</value>
             </list>
-        </property>
+        </property>        
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2dll.auto">create</prop>
             </props>
         </property>
     </bean>
 
+	<bean id="projetoDAO" class="br.com.projectmanager.dao.ProjetoDAO">
+        <property name="sessionFactory" ref="SessionFactory" />
+    </bean>
     <!-- Enable the configuration of transactional behavior based on annotations -->
     <tx:annotation-driven transaction-manager="txManager"/>
 

@@ -5,7 +5,7 @@
   <artifactId>projectmanager</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Project Manager</name>
+  <name>ProjectManager</name>
   <dependencies>
  
     <dependency>

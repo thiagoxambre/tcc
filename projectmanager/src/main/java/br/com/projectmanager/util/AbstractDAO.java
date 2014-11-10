@@ -7,11 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+
 @Repository
 public abstract class AbstractDAO <T extends AbstractEntity> {
 	
 	@Autowired
-	private SessionFactory sessionFactory;
+	protected SessionFactory sessionFactory;
 	
     public SessionFactory getSessionFactory() {
         return sessionFactory;
