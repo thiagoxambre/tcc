@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Welcome to Java Beat  for seeing PrimeFaces_Spring_Hibernate_Project</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h:outputText value="Projetos : "></h:outputText>
+        <p:dataTable id="projetos" var="projeto" value="#{projetoMB.projetos}" style="width: 10%">
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputText value="#{projeto.id}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Nome" />
+                </f:facet>
+                <h:outputText value="#{projeto.nome}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Visão Geral" />
+                </f:facet>
+                <h:outputText value="#{projeto.visaoGeral}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+
+</html>
