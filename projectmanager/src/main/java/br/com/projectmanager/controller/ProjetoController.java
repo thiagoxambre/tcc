@@ -26,15 +26,11 @@ public class ProjetoController implements Serializable {
 	
 	List<Projeto> projetos;
 	
-	private int id;
-	private String nome;
-	private String visaoGeral;
+	
+	private Projeto projeto = new Projeto();
 	
 	public String addProjeto() {
 		try {
-			Projeto projeto = new Projeto();
-			projeto.setNome(getNome());
-			projeto.setVisaoGeral(getVisaoGeral());
 			getProjetoService().addProjeto(projeto);
 			return SUCESSO;
 		} catch (DataAccessException e) {
@@ -44,8 +40,8 @@ public class ProjetoController implements Serializable {
 	}
 	
 	public void reset() {
-		this.setNome("");
-		this.setVisaoGeral("");
+		this.projeto.setNome("");
+		this.projeto.setVisaoGeral("");
 	}
 	
 	public List<Projeto> getProjetos() {
@@ -54,12 +50,6 @@ public class ProjetoController implements Serializable {
 		return projetos;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	
-	
 	public ProjetoService getProjetoService() {
 		return projetoService;
 	}
@@ -68,25 +58,12 @@ public class ProjetoController implements Serializable {
 		this.projetoService = projetoService;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Projeto getProjeto() {
+		return projeto;
 	}
 
-	public String getNome() {
-		return nome;
+	public void setProjeto(Projeto projeto) {
+		this.projeto = projeto;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getVisaoGeral() {
-		return visaoGeral;
-	}
-
-	public void setVisaoGeral(String visaoGeral) {
-		this.visaoGeral = visaoGeral;
-	}
-
 	
 }
