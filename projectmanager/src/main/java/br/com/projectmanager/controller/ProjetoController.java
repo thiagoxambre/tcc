@@ -1,12 +1,14 @@
 package br.com.projectmanager.controller;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.springframework.dao.DataAccessException;
 
@@ -15,16 +17,19 @@ import br.com.projectmanager.service.ProjetoService;
 
 
 @ManagedBean(name="projetoMB")
+@SessionScoped
 public class ProjetoController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private static final String LISTA = "lista";
 	private static final String SUCESSO = "sucesso";
 	private static final String ERRO = "erro";
+	private static final String MENUPROJETO = "menuprojeto";
 	
 	@ManagedProperty(value="#{ProjetoService}")
 	ProjetoService projetoService;
 	
-	List<Projeto> projetos;
+	private List<Projeto> projetos;
 	
 	
 	private Projeto projeto = new Projeto();
@@ -37,6 +42,19 @@ public class ProjetoController implements Serializable {
 			e.printStackTrace();			
 		}
 		return ERRO;
+	}
+	
+	public void deletarProjeto(ActionEvent actionEvent) {
+		getProjetoService().deleteProjeto(this.projeto);
+		this.projetos = getProjetos();
+	}
+	
+	public String selecionarProjeto () {
+		return MENUPROJETO;
+	}
+	
+	public String listaProjetos() {
+		return LISTA;
 	}
 	
 	public void reset() {

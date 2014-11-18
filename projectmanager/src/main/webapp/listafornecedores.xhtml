@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Project Manager</title>
+</h:head>
+<h:body>
+    <h:outputText value="Projeto : #{projetoMB.projeto.nome}"/>
+    <h:form id="formPrincipal">
+        <h:outputText value="Fornecedores de Requisitos : "></h:outputText>
+        <p:dataTable id="fornecedoresTable" var="fornecedor" value="#{fornecedorRequisitosMB.fornecedoresRequisitos}" style="width: 10%">
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputText value="#{fornecedor.id}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Nome" />
+                </f:facet>
+                <h:outputText value="#{fornecedor.nome}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Email" />
+                </f:facet>
+                <h:outputText value="#{fornecedor.email}" />
+            </p:column>
+            <p:column headerText="Ações">
+<!--                              
+                             <p:commandLink title="Alterar" update=":formAlterar:Alterar"
+                                     oncomplete="dialogAlterar.show()" immediate="true">
+                                     <p:graphicImage value="./imagens/edit_icon.png" />
+                                     <f:setPropertyActionListener target="#{pessoaBean.pessoa}"
+                                             value="#{lista}" />
+                             </p:commandLink>
+ -->
+
+
+                             <p:commandLink title="Excluir" update=":formExcluir:Excluir"
+                                     oncomplete="confirmation.show()" immediate="true">
+									<h:outputText value="Deletar" />                                     
+                                     <p:graphicImage value="./imagens/del_icon.png" />
+                                     <f:setPropertyActionListener target="#{projetoMB.projeto}" value="#{projeto}" />
+                             </p:commandLink>
+            </p:column>            
+        </p:dataTable>
+			<p:commandButton value="Cadastrar" id="cadastrar" oncomplete="dialogCadastrar.show()" >
+                                     <f:setPropertyActionListener target="#{fornecedorRequisitosMB.projeto}" value="#{projetoMB.projeto}" />
+    		</p:commandButton>
+    </h:form>
+        <h:form id="formCadastrar">
+                <p:dialog header="Cadastrar" widgetVar="dialogCadastrar" modal="true">
+                        <p:panelGrid id="panelCadastrar" columns="2">
+                                <h:outputText value="Nome:" />
+                                <p:inputText value="#{fornecedorRequisitosMB.fornecedorRequisitos.nome}" />
+                                <h:outputText value="Email:" />
+                                <p:inputText value="#{fornecedorRequisitosMB.fornecedorRequisitos.email}" />
+                                <h:outputText value="Telefone:" />
+                                <p:inputText value="#{fornecedorRequisitosMB.fornecedorRequisitos.telefone}" />
+                                <h:outputText value="Observação:" />
+                                <p:inputTextarea rows="6" cols="33" value="#{fornecedorRequisitosMB.fornecedorRequisitos.observacao}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Cadastrar" actionListener="#{fornecedorRequisitosMB.cadastrar}" update=":formPrincipal:fornecedoresTable" oncomplete="dialogCadastrar.hide()" >
+						</p:commandButton>                                
+                </p:dialog>
+        </h:form>
+        <h:form id="formExcluir">
+                <p:confirmDialog id="Excluir"
+                        message="Você gostaria de Deletar o fornecedor #{fornecedorRequisitosMB.fornecedorRequisitos.nome}?"
+                        header="Excluir" severity="alert" widgetVar="confirmation">
+ 
+                        <p:commandButton id="confirm" value="Sim"
+                                oncomplete="confirmation.hide()"
+                                actionListener="#{fornecedorRequisitosMB.excluir}"
+                                update=":formPrincipal:fornecedoresTable" />
+                        <p:commandButton id="decline" value="Não"
+                                onclick="confirmation.hide()" type="button" />
+ 
+                </p:confirmDialog>
+        </h:form>
+
+</h:body>
+</html>

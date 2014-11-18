@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Novo Projeto</title>
+</h:head>
+<h:body>
+	<h2>Registrar Novo Projeto</h2>
+    <h:form>
+		<p:growl id="msgs" showDetail="true" />
+        <p:fieldset legend="Dados Básicos" style="margin-bottom:20px">
+	        <table>
+	            <tr>
+	                <td><h:outputLabel for="nome" value="Nome: " /></td>
+	                <td><p:inputText id="nome" value="#{projetoMB.projeto.nome}">
+	                    <f:validateLength minimum="5" />
+	                    <p:ajax event="blur" update="nomeMsg" />
+	                </p:inputText>
+	                    <p:message id="nomeMsg" for="nome" display="icon"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td><h:outputLabel for="visaoGeral" value="Visão Geral: " /></td>
+	                <td><p:inputTextarea rows="6" cols="33" id="visaoGeral" value="#{projetoMB.projeto.visaoGeral}">
+	                    <p:ajax event="blur" update="visaoGeralMsg" />
+	                </p:inputTextarea>
+	                    <p:message id="visaoGeralMsg" for="visaoGeral" display="icon"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td><h:outputLabel for="setoresEnvolvidos" value="Setores Envolvidos: " /></td>
+	                <td><p:inputTextarea rows="6" cols="33" id="setoresEnvolvidos" value="#{projetoMB.projeto.setoresEnvolvidos}">
+	                    <p:ajax event="blur" update="setoresEnvolvidosMsg" />
+	                </p:inputTextarea>
+	                    <p:message id="setoresEnvolvidosMsg" for="setoresEnvolvidos" display="icon"/>
+	                </td>
+	            </tr>
+	        </table>
+	    </p:fieldset>
+        <p:fieldset legend="Responsável" style="margin-bottom:20px">
+        	<table>
+	            <tr>
+	                <td><h:outputLabel for="nomeResponsavel" value="Nome: " /></td>
+	                <td><p:inputText id="nomeResponsavel" value="#{projetoMB.projeto.nomeResponsavel}">
+	                    <p:ajax event="blur" update="nomeResponsavelMsg" />
+	                </p:inputText>
+	                    <p:message id="nomeResponsavelMsg" for="nomeResponsavel" display="icon"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td><h:outputLabel for="emailResponsavel" value="Email: " /></td>
+	                <td><p:inputText id="emailResponsavel" value="#{projetoMB.projeto.emailResponsavel}">
+	                    <p:ajax event="blur" update="emailResponsavelMsg" />
+	                </p:inputText>
+	                    <p:message id="emailResponsavelMsg" for="emailResponsavel" display="icon"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td><h:outputLabel for="telefoneResponsavel" value="Telefone: " /></td>
+	                <td><p:inputText id="telefoneResponsavel" value="#{projetoMB.projeto.telefoneResponsavel}">
+	                    <p:ajax event="blur" update="telefoneResponsavelMsg" />
+	                </p:inputText>
+	                    <p:message id="telefoneResponsavelMsg" for="telefoneResponsavel" display="icon"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td><h:outputLabel for="observacaoResponsavel" value="Observação: " /></td>
+	                <td><p:inputTextarea rows="6" cols="33" id="observacaoResponsavel" value="#{projetoMB.projeto.observacaoResponsavel}">
+	                    <p:ajax event="blur" update="observacaoResponsavelMsg" />
+	                </p:inputTextarea>
+	                    <p:message id="observacaoResponsavelMsg" for="observacaoResponsavel" display="icon"/>
+	                </td>
+	            </tr>
+        	</table>
+        </p:fieldset>
+
+        <p:fieldset legend="Declaração do Problema" style="margin-bottom:20px">
+        	<table>
+	            <tr>
+	                <td><h:outputLabel for="problema" value="O problema de: " /></td>
+	                <td><p:inputTextarea rows="6" cols="33" id="problema" value="#{projetoMB.projeto.problema}">
+	                    <p:ajax event="blur" update="problemaMsg" />
+	                </p:inputTextarea>
+	                    <p:message id="problemaMsg" for="problema" display="icon"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td><h:outputLabel for="afeta" value="Afeta: " /></td>
+	                <td><p:inputTextarea rows="6" cols="33" id="afeta" value="#{projetoMB.projeto.afeta}">
+	                    <p:ajax event="blur" update="afetaMsg" />
+	                </p:inputTextarea>
+	                    <p:message id="afetaMsg" for="afeta" display="icon"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td><h:outputLabel for="impacto" value="O impacto é: " /></td>
+	                <td><p:inputTextarea rows="6" cols="33" id="impacto" value="#{projetoMB.projeto.impacto}">
+	                    <p:ajax event="blur" update="impactoMsg" />
+	                </p:inputTextarea>
+	                    <p:message id="impactoMsg" for="impacto" display="icon"/>
+	                </td>
+	            </tr>
+	            <tr>
+	                <td><h:outputLabel for="solucao" value="Uma solução seria: " /></td>
+	                <td><p:inputTextarea rows="6" cols="33" id="solucao" value="#{projetoMB.projeto.solucao}">
+	                    <p:ajax event="blur" update="solucaoMsg" />
+	                </p:inputTextarea>
+	                    <p:message id="solucaoMsg" for="solucao" display="icon"/>
+	                </td>
+	            </tr>
+        	</table>
+        </p:fieldset>
+
+        <p:fieldset legend="Documentação" style="margin-bottom:20px">
+        	<table>
+        		<tr>
+        			<td>
+        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.manualUsuario}" />        			
+        				<h:outputText value="Manual do Usuário" />
+        			</td>
+        			<td>
+        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.ajudaOnline}" />        			
+        				<h:outputText value="Ajuda Online" />
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>
+        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.guiaInstalacao}" />        			
+        				<h:outputText value="Guia de Instalação" />
+        			</td>
+        			<td>
+        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.outroDocumentacao}" />        			
+        				<h:outputText value="Outro" />
+        			</td>
+        		</tr>
+        		<tr>
+        			<td colspan="2">
+	                	<h:outputLabel for="textoOutro" value="Outra documentação: " />
+	                	<p:inputText id="textoOutro" value="#{projetoMB.projeto.textoOutro}">
+	                    	<p:ajax event="blur" update="textoOutroMsg" />
+	                	</p:inputText>
+	                    <p:message id="textoOutroMsg" for="textoOutro" display="icon"/>
+        			</td>
+        		</tr>
+        	</table>
+        </p:fieldset>
+			      
+		<table>
+	            <tr>
+	                <td><p:commandButton id="registrarProjeto" value="Registrar Projeto" action="#{projetoMB.addProjeto}" ajax="false"/></td>
+	                <td><p:commandButton id="reset" value="Limpar" action="#{projetoMB.reset}" ajax="false"/></td>
+	                <td><p:commandButton id="listarProjetos" value="Listar Projetos" action="#{projetoMB.listaProjetos}" ajax="false"/></td>
+	            </tr>
+		</table>
+    </h:form>
+</h:body>
+</html>

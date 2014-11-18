@@ -40,6 +40,11 @@
 	<bean id="projetoDAO" class="br.com.projectmanager.dao.ProjetoDAO">
         <property name="sessionFactory" ref="SessionFactory" />
     </bean>
+
+	<bean id="fornecedorRequisitosDAO" class="br.com.projectmanager.dao.FornecedorRequisitosDAO">
+        <property name="sessionFactory" ref="SessionFactory" />
+    </bean>
+
     <!-- Enable the configuration of transactional behavior based on annotations -->
     <tx:annotation-driven transaction-manager="txManager"/>
 

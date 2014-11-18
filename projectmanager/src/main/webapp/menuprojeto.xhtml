@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Project Manager</title>
+</h:head>
+<body>
+
+    <h:form>
+		<h:outputText value="Projeto: #{projetoMB.projeto.nome}" />
+		<p:growl id="msgs" showDetail="true" />
+		<table>
+	            <tr>
+	                <td><p:commandButton id="fornecedoresRequisitos" value="Fornecedores de Requisitos" action="#{fornecedorRequisitosMB.listarFornecedoresRequisitos}" ajax="false">
+                        	<f:setPropertyActionListener target="#{fornecedorRequisitosMB.projeto}" value="#{projetoMB.projeto}" />
+                       	</p:commandButton>
+	                </td>
+	                <td><p:commandButton id="resumoUsuario" value="Resumo de Usuários" action="#" ajax="false"/></td>
+	            </tr>
+	            <tr>
+	                <td><p:commandButton id="riscos" value="Riscos" action="#" ajax="false"/></td>
+	                <td><p:commandButton id="recursos" value="Recursos" action="#" ajax="false"/></td>
+	            </tr>
+		</table>
+	</h:form>
+	
+	
+
+</body>
+</html>
