@@ -32,6 +32,20 @@ public class FornecedorRequisitosController implements Serializable {
 	public void cadastrar() {
 		getFornecedorRequisitos().setProjeto(projeto);
 		getFornecedorRequisitosService().addFornecedorRequisitos(fornecedorRequisitos);
+		this.fornecedoresRequisitos = getFornecedoresRequisitos();
+		fornecedorRequisitos = new FornecedorRequisitos();
+	}
+	
+	public void alterar() {
+		getFornecedorRequisitosService().updateFornecedorRequisitos(fornecedorRequisitos);
+		this.fornecedoresRequisitos = getFornecedoresRequisitos();
+		fornecedorRequisitos = new FornecedorRequisitos();
+	}
+	
+
+	public void excluir () {
+		getFornecedorRequisitosService().deleteFornecedorRequisitos(fornecedorRequisitos);
+		this.fornecedoresRequisitos = getFornecedoresRequisitos();
 	}
 	
 	public String listarFornecedoresRequisitos() {

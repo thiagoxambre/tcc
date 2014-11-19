@@ -1,0 +1,4 @@
+.ui-icon-fornecedor{
+    background-image: url("#{resource['imagens/fornecedor.png']}");
+}
+
