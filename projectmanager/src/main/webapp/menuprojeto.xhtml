@@ -15,7 +15,9 @@
                         <f:setPropertyActionListener target="#{fornecedorRequisitosMB.projeto}" value="#{projetoMB.projeto}" />
                     </p:commandButton>
 	                
-	                <p:commandButton id="resumoUsuario" value="Resumo de Usuários" action="#" ajax="false"/>
+	                <p:commandButton id="resumoUsuario" value="Resumo de Usuários" action="#{resumoUsuariosMB.listarResumoUsuarios}" ajax="false">
+                        <f:setPropertyActionListener target="#{resumoUsuariosMB.projeto}" value="#{projetoMB.projeto}" />
+					</p:commandButton>
 	                <p:commandButton id="riscos" value="Riscos" action="#" ajax="false"/>
 	                <p:commandButton id="recursos" value="Recursos" action="#" ajax="false"/>
 		</p:panelGrid>

@@ -23,14 +23,13 @@ public class FornecedorRequisitosController implements Serializable {
 	FornecedorRequisitosService fornecedorRequisitosService;
 	
 	private FornecedorRequisitos fornecedorRequisitos = new FornecedorRequisitos();
-
-	private Projeto projeto = new Projeto();
 	
+	private Projeto projeto = new Projeto();
+
 	
 	private List<FornecedorRequisitos> fornecedoresRequisitos;
 	
 	public void cadastrar() {
-		getFornecedorRequisitos().setProjeto(projeto);
 		getFornecedorRequisitosService().addFornecedorRequisitos(fornecedorRequisitos);
 		this.fornecedoresRequisitos = getFornecedoresRequisitos();
 		fornecedorRequisitos = new FornecedorRequisitos();
@@ -82,7 +81,6 @@ public class FornecedorRequisitosController implements Serializable {
 	public void setProjeto(Projeto projeto) {
 		this.projeto = projeto;
 	}
-	
-	
+
 
 }
