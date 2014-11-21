@@ -34,14 +34,16 @@ public class ProjetoController implements Serializable {
 	
 	private Projeto projeto = new Projeto();
 	
-	public String addProjeto() {
-		try {
-			getProjetoService().addProjeto(projeto);
-			return SUCESSO;
-		} catch (DataAccessException e) {
-			e.printStackTrace();			
-		}
-		return ERRO;
+	public void cadastrar() {
+		getProjetoService().addProjeto(projeto);
+		this.projetos = getProjetoService().getProjetos();
+		projeto = new Projeto();
+	}
+	
+	public void alterar() {
+		getProjetoService().updateProjeto(projeto);
+		this.projetos = getProjetoService().getProjetos();
+		projeto = new Projeto();
 	}
 	
 	public void deletarProjeto(ActionEvent actionEvent) {

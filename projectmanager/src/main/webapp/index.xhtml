@@ -8,7 +8,7 @@
 <h:body>
     <h:form id="formPrincipal">
         <h:outputText value="Projetos : "></h:outputText>
-        <p:dataTable id="projetos" var="projeto" value="#{projetoMB.projetos}" style="width: 10%">
+        <p:dataTable id="projetosTable" var="projeto" value="#{projetoMB.projetos}" style="width: 10%">
             <p:column>
                 <f:facet name="header">
                     <h:outputText value="ID" />
@@ -28,40 +28,296 @@
                 <h:outputText value="#{projeto.visaoGeral}" />
             </p:column>
             <p:column headerText="Ações">
-<!--                              
-                             <p:commandLink title="Alterar" update=":formAlterar:Alterar"
-                                     oncomplete="dialogAlterar.show()" immediate="true">
-                                     <p:graphicImage value="./imagens/edit_icon.png" />
-                                     <f:setPropertyActionListener target="#{pessoaBean.pessoa}"
-                                             value="#{lista}" />
-                             </p:commandLink>
- -->
                              <p:commandLink title="Selecionar" action="#{projetoMB.selecionarProjeto}" ajax="false">
 									<h:outputText value="Selecionar" />                                     
                                      <p:graphicImage value="./imagens/del_icon.png" />
                                      <f:setPropertyActionListener target="#{projetoMB.projeto}" value="#{projeto}" />
                              </p:commandLink>
 
+                             <p:commandLink title="Alterar" update=":formAlterar:Alterar"
+                                     oncomplete="dialogAlterar.show()" immediate="true">
+                                     <p:graphicImage value="#{resource['imagens/24x24/edit26.png']}" />
+                                     <f:setPropertyActionListener target="#{projetoMB.projeto}"
+                                             value="#{projeto}" />
+                             </p:commandLink>
+
                              <p:commandLink title="Excluir" update=":formExcluir:Excluir"
                                      oncomplete="confirmation.show()" immediate="true">
-									<h:outputText value="Deletar" />                                     
-                                     <p:graphicImage value="./imagens/del_icon.png" />
+                                     <p:graphicImage value="#{resource['imagens/24x24/delete96.png']}" />
                                      <f:setPropertyActionListener target="#{projetoMB.projeto}"
                                              value="#{projeto}" />
                              </p:commandLink>
             </p:column>            
         </p:dataTable>
+			<p:commandButton value="Cadastrar" id="cadastrar" oncomplete="dialogCadastrar.show()" update=":formCadastrar:Cadastrar" >
+    		</p:commandButton>
     </h:form>
+
+    <h:form id="formAlterar">
+            <p:dialog header="Alterar" widgetVar="dialogAlterar" modal="true" id="Alterar" height="400">
+	        	<p:fieldset legend="Dados Básicos" style="margin-bottom:20px">
+	                    <p:panelGrid columns="2">
+			                <h:outputLabel for="nome" value="Nome: " />
+			                <p:column colspan="2">
+				                <p:inputText id="nome" value="#{projetoMB.projeto.nome}">
+				                    <f:validateLength minimum="5" />
+				                    <p:ajax event="blur" update="nomeMsg" />
+				                </p:inputText>
+				                    <p:message id="nomeMsg" for="nome" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="visaoGeral" value="Visão Geral: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="visaoGeral" value="#{projetoMB.projeto.visaoGeral}">
+				                    <p:ajax event="blur" update="visaoGeralMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="visaoGeralMsg" for="visaoGeral" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="setoresEnvolvidos" value="Setores Envolvidos: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="setoresEnvolvidos" value="#{projetoMB.projeto.setoresEnvolvidos}">
+				                    <p:ajax event="blur" update="setoresEnvolvidosMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="setoresEnvolvidosMsg" for="setoresEnvolvidos" display="icon"/>
+			                </p:column>
+	                    </p:panelGrid>
+	            </p:fieldset>
+
+		        <p:fieldset legend="Responsável" style="margin-bottom:20px">
+	                	<p:panelGrid columns="2">
+			                <h:outputLabel for="nomeResponsavel" value="Nome: " />
+			                <p:column colspan="2">
+				                <p:inputText id="nomeResponsavel" value="#{projetoMB.projeto.nomeResponsavel}">
+				                    <p:ajax event="blur" update="nomeResponsavelMsg" />
+				                </p:inputText>
+				                    <p:message id="nomeResponsavelMsg" for="nomeResponsavel" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="emailResponsavel" value="Email: " />
+			                <p:column colspan="2">
+				                <p:inputText id="emailResponsavel" value="#{projetoMB.projeto.emailResponsavel}">
+				                    <p:ajax event="blur" update="emailResponsavelMsg" />
+				                </p:inputText>
+				                    <p:message id="emailResponsavelMsg" for="emailResponsavel" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="telefoneResponsavel" value="Telefone: " />
+			                <p:column colspan="2">
+				                <p:inputText id="telefoneResponsavel" value="#{projetoMB.projeto.telefoneResponsavel}">
+				                    <p:ajax event="blur" update="telefoneResponsavelMsg" />
+				                </p:inputText>
+				                    <p:message id="telefoneResponsavelMsg" for="telefoneResponsavel" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="observacaoResponsavel" value="Observação: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="observacaoResponsavel" value="#{projetoMB.projeto.observacaoResponsavel}">
+				                    <p:ajax event="blur" update="observacaoResponsavelMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="observacaoResponsavelMsg" for="observacaoResponsavel" display="icon"/>
+			                </p:column>
+		        	</p:panelGrid>
+		        </p:fieldset>
+
+		        <p:fieldset legend="Declaração do Problema" style="margin-bottom:20px">
+	                	<p:panelGrid columns="2">
+			                <h:outputLabel for="problema" value="O problema de: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="problema" value="#{projetoMB.projeto.problema}">
+				                    <p:ajax event="blur" update="problemaMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="problemaMsg" for="problema" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="afeta" value="Afeta: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="afeta" value="#{projetoMB.projeto.afeta}">
+				                    <p:ajax event="blur" update="afetaMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="afetaMsg" for="afeta" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="impacto" value="O impacto é: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="impacto" value="#{projetoMB.projeto.impacto}">
+				                    <p:ajax event="blur" update="impactoMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="impactoMsg" for="impacto" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="solucao" value="Uma solução seria: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="solucao" value="#{projetoMB.projeto.solucao}">
+				                    <p:ajax event="blur" update="solucaoMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="solucaoMsg" for="solucao" display="icon"/>
+			                </p:column>
+		        	</p:panelGrid>
+		        </p:fieldset>
+
+		        <p:fieldset legend="Documentação" style="margin-bottom:20px">
+	               	<p:panelGrid columns="2">
+			                <p:column colspan="2">
+		        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.manualUsuario}" />        			
+		        				<h:outputText value="Manual do Usuário" />
+		        			</p:column>
+			                <p:column colspan="2">
+		        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.ajudaOnline}" />        			
+		        				<h:outputText value="Ajuda Online" />
+		        			</p:column>
+			                <p:column colspan="2">
+		        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.guiaInstalacao}" />        			
+		        				<h:outputText value="Guia de Instalação" />
+		        			</p:column>
+			                <p:column colspan="2">
+		        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.outroDocumentacao}" />        			
+		        				<h:outputText value="Outro" />
+		        			</p:column>
+		                	<h:outputLabel for="textoOutro" value="Outra documentação: " />
+			                <p:column colspan="2">
+			                	<p:inputText id="textoOutro" value="#{projetoMB.projeto.textoOutro}">
+			                    	<p:ajax event="blur" update="textoOutroMsg" />
+			                	</p:inputText>
+			                    <p:message id="textoOutroMsg" for="textoOutro" display="icon"/>
+		        			</p:column>
+		        	</p:panelGrid>
+		        </p:fieldset>
+            
+                    <p:commandButton value="Salvar" actionListener="#{projetoMB.alterar}" update=":formPrincipal:projetosTable" oncomplete="dialogAlterar.hide()" >
+		</p:commandButton>                                
+            </p:dialog>
+    </h:form>
+
+    <h:form id="formCadastrar">
+            <p:dialog header="Cadastrar" widgetVar="dialogCadastrar" modal="true" id="Cadastrar" height="400">
+	        	<p:fieldset legend="Dados Básicos" style="margin-bottom:20px">
+	                    <p:panelGrid columns="2">
+			                <h:outputLabel for="nome" value="Nome: " />
+			                <p:column colspan="2">
+				                <p:inputText id="nome" value="#{projetoMB.projeto.nome}">
+				                    <f:validateLength minimum="5" />
+				                    <p:ajax event="blur" update="nomeMsg" />
+				                </p:inputText>
+				                    <p:message id="nomeMsg" for="nome" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="visaoGeral" value="Visão Geral: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="visaoGeral" value="#{projetoMB.projeto.visaoGeral}">
+				                    <p:ajax event="blur" update="visaoGeralMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="visaoGeralMsg" for="visaoGeral" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="setoresEnvolvidos" value="Setores Envolvidos: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="setoresEnvolvidos" value="#{projetoMB.projeto.setoresEnvolvidos}">
+				                    <p:ajax event="blur" update="setoresEnvolvidosMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="setoresEnvolvidosMsg" for="setoresEnvolvidos" display="icon"/>
+			                </p:column>
+	                    </p:panelGrid>
+	            </p:fieldset>
+
+		        <p:fieldset legend="Responsável" style="margin-bottom:20px">
+	                	<p:panelGrid columns="2">
+			                <h:outputLabel for="nomeResponsavel" value="Nome: " />
+			                <p:column colspan="2">
+				                <p:inputText id="nomeResponsavel" value="#{projetoMB.projeto.nomeResponsavel}">
+				                    <p:ajax event="blur" update="nomeResponsavelMsg" />
+				                </p:inputText>
+				                    <p:message id="nomeResponsavelMsg" for="nomeResponsavel" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="emailResponsavel" value="Email: " />
+			                <p:column colspan="2">
+				                <p:inputText id="emailResponsavel" value="#{projetoMB.projeto.emailResponsavel}">
+				                    <p:ajax event="blur" update="emailResponsavelMsg" />
+				                </p:inputText>
+				                    <p:message id="emailResponsavelMsg" for="emailResponsavel" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="telefoneResponsavel" value="Telefone: " />
+			                <p:column colspan="2">
+				                <p:inputText id="telefoneResponsavel" value="#{projetoMB.projeto.telefoneResponsavel}">
+				                    <p:ajax event="blur" update="telefoneResponsavelMsg" />
+				                </p:inputText>
+				                    <p:message id="telefoneResponsavelMsg" for="telefoneResponsavel" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="observacaoResponsavel" value="Observação: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="observacaoResponsavel" value="#{projetoMB.projeto.observacaoResponsavel}">
+				                    <p:ajax event="blur" update="observacaoResponsavelMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="observacaoResponsavelMsg" for="observacaoResponsavel" display="icon"/>
+			                </p:column>
+		        	</p:panelGrid>
+		        </p:fieldset>
+
+		        <p:fieldset legend="Declaração do Problema" style="margin-bottom:20px">
+	                	<p:panelGrid columns="2">
+			                <h:outputLabel for="problema" value="O problema de: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="problema" value="#{projetoMB.projeto.problema}">
+				                    <p:ajax event="blur" update="problemaMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="problemaMsg" for="problema" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="afeta" value="Afeta: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="afeta" value="#{projetoMB.projeto.afeta}">
+				                    <p:ajax event="blur" update="afetaMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="afetaMsg" for="afeta" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="impacto" value="O impacto é: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="impacto" value="#{projetoMB.projeto.impacto}">
+				                    <p:ajax event="blur" update="impactoMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="impactoMsg" for="impacto" display="icon"/>
+			                </p:column>
+			                <h:outputLabel for="solucao" value="Uma solução seria: " />
+			                <p:column colspan="2">
+				                <p:inputTextarea rows="6" cols="33" id="solucao" value="#{projetoMB.projeto.solucao}">
+				                    <p:ajax event="blur" update="solucaoMsg" />
+				                </p:inputTextarea>
+				                    <p:message id="solucaoMsg" for="solucao" display="icon"/>
+			                </p:column>
+		        	</p:panelGrid>
+		        </p:fieldset>
+
+		        <p:fieldset legend="Documentação" style="margin-bottom:20px">
+	               	<p:panelGrid columns="2">
+			                <p:column colspan="2">
+		        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.manualUsuario}" />        			
+		        				<h:outputText value="Manual do Usuário" />
+		        			</p:column>
+			                <p:column colspan="2">
+		        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.ajudaOnline}" />        			
+		        				<h:outputText value="Ajuda Online" />
+		        			</p:column>
+			                <p:column colspan="2">
+		        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.guiaInstalacao}" />        			
+		        				<h:outputText value="Guia de Instalação" />
+		        			</p:column>
+			                <p:column colspan="2">
+		        				<p:selectBooleanCheckbox value="#{projetoMB.projeto.outroDocumentacao}" />        			
+		        				<h:outputText value="Outro" />
+		        			</p:column>
+		                	<h:outputLabel for="textoOutro" value="Outra documentação: " />
+			                <p:column colspan="2">
+			                	<p:inputText id="textoOutro" value="#{projetoMB.projeto.textoOutro}">
+			                    	<p:ajax event="blur" update="textoOutroMsg" />
+			                	</p:inputText>
+			                    <p:message id="textoOutroMsg" for="textoOutro" display="icon"/>
+		        			</p:column>
+		        	</p:panelGrid>
+		        </p:fieldset>
+                    <p:commandButton value="Cadastrar" actionListener="#{projetoMB.cadastrar}" update=":formPrincipal:projetosTable" oncomplete="dialogCadastrar.hide()" />
+		    </p:dialog>
+    </h:form>
+
+
     
  	<h:form id="formExcluir">
                 <p:confirmDialog id="Excluir"
-                        message="Você gostaria de Deletar o #{projetoMB.projeto.nome}?"
+                        message="Você gostaria de Deletar o projeto #{projetoMB.projeto.nome}?"
                         header="Excluir" severity="alert" widgetVar="confirmation">
  
                         <p:commandButton id="confirm" value="Sim"
                                 oncomplete="confirmation.hide()"
                                 actionListener="#{projetoMB.deletarProjeto}"
-                                update=":formPrincipal:projetos" />
+                                update=":formPrincipal:projetosTable" />
                         <p:commandButton id="decline" value="Não"
                                 onclick="confirmation.hide()" type="button" />
  

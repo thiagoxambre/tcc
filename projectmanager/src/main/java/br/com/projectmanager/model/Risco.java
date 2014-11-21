@@ -2,6 +2,8 @@ package br.com.projectmanager.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -16,49 +18,53 @@ public class Risco extends AbstractEntity {
 	@JoinColumn(name="PROJETO_ID")
 	private Projeto projeto;
 	
+	@Column(name="NOME")
 	private String nome;
+	@Column(name="DESCRICAO")
 	private String descricao;
-	private TipoRisco tipoRisco;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name="TIPO_RISCO")
+private TipoRisco tipoRisco;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name="CATEGORIA_RISCO")
 	private CategoriaRisco categoriaRisco;
+	@Column(name="PLANO_CONTINGENCIA")
 	private String planoContingencia;
+	@Column(name="PROBABILIDADE")
 	private double probabilidade;
+	@Column(name="IMPACTO")
 	private double impacto;
 	
 	public Projeto getProjeto() {
 		return projeto;
 	}
 
-	@Column(name="NOME")
 	public String getNome() {
 		return nome;
 	}
 
-	@Column(name="NOME")
 	public String getDescricao() {
 		return descricao;
 	}
 
-	@Column(name="TIPO_RISCO")
 	public TipoRisco getTipoRisco() {
 		return tipoRisco;
 	}
 
-	@Column(name="CATEGORIA_RISCO")
 	public CategoriaRisco getCategoriaRisco() {
 		return categoriaRisco;
 	}
 
-	@Column(name="PLANO_CONTIGENCIA")
 	public String getPlanoContingencia() {
 		return planoContingencia;
 	}
 	
-	@Column(name="PROBABILIDADE")
 	public double getProbabilidade() {
 		return probabilidade;
 	}
 	
-	@Column(name="IMPACTO")
 	public double getImpacto() {
 		return impacto;
 	}

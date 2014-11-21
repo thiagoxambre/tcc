@@ -1,0 +1,91 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Project Manager</title>
+</h:head>
+<h:body>
+    <h:outputText value="Projeto : #{projetoMB.projeto.nome}"/>
+    <h:form id="formPrincipal">
+        <h:outputText value="Recursos : "></h:outputText>
+        <p:dataTable id="recursosTable" var="recurso" value="#{recursoMB.recursoList}" style="width: 30%">
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputText value="#{recurso.id}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Nome" />
+                </f:facet>
+                <h:outputText value="#{recurso.nome}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Descrição" />
+                </f:facet>
+                <h:outputText value="#{recurso.descricao}" />
+            </p:column>
+            <p:column headerText="Ações">
+                             <p:commandLink title="Alterar" update=":formAlterar:Alterar" oncomplete="dialogAlterar.show()" immediate="true">
+                                     <p:graphicImage value="#{resource['imagens/24x24/edit26.png']}" />
+                                     <f:setPropertyActionListener target="#{recursoMB.recurso}" value="#{recurso}" />
+                             </p:commandLink>
+                             <p:commandLink title="Excluir" update=":formExcluir:Excluir" oncomplete="confirmation.show()" immediate="true">
+                                     <p:graphicImage value="#{resource['imagens/24x24/delete96.png']}" />
+                                     <f:setPropertyActionListener target="#{recursoMB.recurso}" value="#{recurso}" />
+                             </p:commandLink>
+            </p:column>            
+        </p:dataTable>
+			<p:commandButton value="Cadastrar" id="cadastrar" oncomplete="dialogCadastrar.show()" update=":formCadastrar:Cadastrar" >
+                                     <f:setPropertyActionListener target="#{recursoMB.recurso.projeto}" value="#{projetoMB.projeto}" />
+    		</p:commandButton>
+
+    </h:form>
+
+        <h:form id="formAlterar">
+                <p:dialog header="Alterar" widgetVar="dialogAlterar" modal="true" id="Alterar">
+                        <p:panelGrid id="panelAlterar" columns="2">
+                                <h:outputText value="Nome:" />
+                                <p:inputText value="#{recursoMB.recurso.nome}" />
+                                <h:outputText value="Descrição:" />
+                                <p:inputTextarea rows="6" cols="33" value="#{recursoMB.recurso.descricao}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Salvar" actionListener="#{recursoMB.alterar}" update=":formPrincipal:recursosTable" oncomplete="dialogAlterar.hide()" >
+						</p:commandButton>                                
+                </p:dialog>
+        </h:form>
+
+        <h:form id="formCadastrar">
+                <p:dialog header="Cadastrar" widgetVar="dialogCadastrar" modal="true" id="Cadastrar">
+                        <p:panelGrid id="panelCadastrar" columns="2">
+                                <h:outputText value="Nome:" />
+                                <p:inputText value="#{recursoMB.recurso.nome}" />
+                                <h:outputText value="Descrição:" />
+                                <p:inputTextarea rows="6" cols="33" value="#{recursoMB.recurso.descricao}"/>
+                        </p:panelGrid>
+                        <p:commandButton value="Cadastrar" actionListener="#{recursoMB.cadastrar}" update=":formPrincipal:recursosTable" oncomplete="dialogCadastrar.hide()" >
+						</p:commandButton>                                
+                </p:dialog>
+        </h:form>
+
+
+        <h:form id="formExcluir">
+                <p:confirmDialog id="Excluir"
+                        message="Você gostaria de Deletar o recurso #{recursoMB.recurso.nome}?"
+                        header="Excluir" severity="alert" widgetVar="confirmation">
+ 
+                        <p:commandButton id="confirm" value="Sim"
+                                oncomplete="confirmation.hide()"
+                                actionListener="#{recursoMB.excluir}"
+                                update=":formPrincipal:recursosTable" />
+                        <p:commandButton id="decline" value="Não"
+                                onclick="confirmation.hide()" type="button" />
+ 
+                </p:confirmDialog>
+        </h:form>
+
+</h:body>
+</html>

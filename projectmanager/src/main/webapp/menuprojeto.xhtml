@@ -18,8 +18,12 @@
 	                <p:commandButton id="resumoUsuario" value="Resumo de Usuários" action="#{resumoUsuariosMB.listarResumoUsuarios}" ajax="false">
                         <f:setPropertyActionListener target="#{resumoUsuariosMB.projeto}" value="#{projetoMB.projeto}" />
 					</p:commandButton>
-	                <p:commandButton id="riscos" value="Riscos" action="#" ajax="false"/>
-	                <p:commandButton id="recursos" value="Recursos" action="#" ajax="false"/>
+	                <p:commandButton id="riscos" value="Riscos" action="#{riscoMB.listarRiscos}" ajax="false">
+                        <f:setPropertyActionListener target="#{riscoMB.projeto}" value="#{projetoMB.projeto}" />
+					</p:commandButton>
+	                <p:commandButton id="recursos" value="Recursos do Software" action="#{recursoMB.listarRecursos}" ajax="false">
+                        <f:setPropertyActionListener target="#{recursoMB.projeto}" value="#{projetoMB.projeto}" />
+					</p:commandButton>
 		</p:panelGrid>
 	</h:form>
 	
