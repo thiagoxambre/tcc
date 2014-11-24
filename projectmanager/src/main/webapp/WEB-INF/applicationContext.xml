@@ -3,12 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        					   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        					   http://www.springframework.org/schema/context
        					   http://www.springframework.org/schema/context/spring-context-3.0.xsd
        					   http://www.springframework.org/schema/tx
-       					   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+       					   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+ 						   http://www.springframework.org/schema/security
+        				   http://www.springframework.org/schema/security/spring-security-3.0.xsd">
 
     <context:component-scan base-package="br.com.projectmanager"/>
     <context:annotation-config/>
@@ -36,6 +39,21 @@
             </props>
         </property>
     </bean>
+
+    <security:http auto-config="true" use-expressions="true">
+        <security:intercept-url pattern="/index.jsf" access="hasRole('ROLE_USER')"/>
+        <security:form-login login-page="/login.jsf" authentication-failure-url="/login.jsf?erro=true"/>
+    </security:http>
+     
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:jdbc-user-service data-source-ref="dataSource"
+               users-by-username-query="SELECT username, password, enable FROM usuario WHERE username=?"
+               authorities-by-username-query="SELECT Usuario_username as username, autorizacoes_nome as authority FROM usuario_autorizacao WHERE Usuario_username=?"
+            />
+        </security:authentication-provider>
+    </security:authentication-manager>
+
 
 	<bean id="projetoDAO" class="br.com.projectmanager.dao.ProjetoDAO">
         <property name="sessionFactory" ref="SessionFactory" />
