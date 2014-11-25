@@ -6,10 +6,9 @@
     <title>Project Manager</title>
 </h:head>
 <h:body>
-    <h:outputText value="Projeto : #{projetoMB.projeto.nome}"/>
     <h:form id="formPrincipal">
-        <h:outputText value="Resumo de Usuários : "></h:outputText>
-        <p:dataTable id="usuariosTable" var="usuario" value="#{resumoUsuariosMB.resumoUsuariosList}" style="width: 30%">
+        <h:outputText value="Usuários : "></h:outputText>
+        <p:dataTable id="usuariosTable" var="usuario" value="#{usuarioMB.usuarioList}" style="width: 30%">
             <p:column>
                 <f:facet name="header">
                     <h:outputText value="ID" />
@@ -18,44 +17,54 @@
             </p:column>
             <p:column>
                 <f:facet name="header">
+                    <h:outputText value="Username" />
+                </f:facet>
+                <h:outputText value="#{usuario.usarname}" />
+            </p:column>
+            <p:column>
+                <f:facet name="header">
                     <h:outputText value="Nome" />
                 </f:facet>
                 <h:outputText value="#{usuario.nome}" />
             </p:column>
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Descrição" />
-                </f:facet>
-                <h:outputText value="#{usuario.descricao}" />
-            </p:column>
             <p:column headerText="Ações">
                              <p:commandLink title="Alterar" update=":formAlterar:Alterar" oncomplete="dialogAlterar.show()" immediate="true">
                                      <p:graphicImage value="#{resource['imagens/24x24/edit26.png']}" />
-                                     <f:setPropertyActionListener target="#{resumoUsuariosMB.resumoUsuarios}" value="#{usuario}" />
+                                     <f:setPropertyActionListener target="#{usuarioMB.usuario}" value="#{usuario}" />
                              </p:commandLink>
                              <p:commandLink title="Excluir" update=":formExcluir:Excluir" oncomplete="confirmation.show()" immediate="true">
                                      <p:graphicImage value="#{resource['imagens/24x24/delete96.png']}" />
-                                     <f:setPropertyActionListener target="#{resumoUsuariosMB.resumoUsuarios}" value="#{usuario}" />
+                                     <f:setPropertyActionListener target="#{usuarioMB.usuario}" value="#{usuario}" />
                              </p:commandLink>
             </p:column>            
         </p:dataTable>
-			<p:commandButton value="Cadastrar" id="cadastrar" oncomplete="dialogCadastrar.show()" update=":formCadastrar:Cadastrar" >
-                                     <f:setPropertyActionListener target="#{resumoUsuariosMB.resumoUsuarios.projeto}" value="#{projetoMB.projeto}" />
-    		</p:commandButton>
+			<p:commandButton value="Cadastrar" id="cadastrar" oncomplete="dialogCadastrar.show()" update=":formCadastrar:Cadastrar" />
 
     </h:form>
 
         <h:form id="formAlterar">
                 <p:dialog header="Alterar" widgetVar="dialogAlterar" modal="true" id="Alterar">
                         <p:panelGrid id="panelAlterar" columns="2">
+                                <h:outputText value="Username:" />
+                                <p:inputText value="#{usuarioMB.usuario.username}" />
+                                <h:outputText value="Senha:" />
+                                <p:inputText value="#{usuarioMB.usuario.senha}" />
                                 <h:outputText value="Nome:" />
-                                <p:inputText value="#{resumoUsuariosMB.resumoUsuarios.nome}" />
-                                <h:outputText value="Descrição:" />
-                                <p:inputTextarea rows="6" cols="33" value="#{resumoUsuariosMB.resumoUsuarios.descricao}"/>
-                                <h:outputText value="Responsabilidades:" />
-                                <p:inputTextarea rows="6" cols="33" value="#{resumoUsuariosMB.resumoUsuarios.responsabilidades}"/>
+                                <p:inputText value="#{usuarioMB.usuario.nome}" />
+                                <h:outputText value="Email:" />
+                                <p:inputText value="#{usuarioMB.usuario.email}" />
+                                <h:outputText value="Telefone:" />
+                                <p:inputText value="#{usuarioMB.usuario.telefone}" />
+                                <h:outputText value="Observação:" />
+                                <p:inputTextarea rows="6" cols="33" value="#{usuarioMB.usuario.observacao}"/>
+		        				<p:selectBooleanCheckbox value="#{usuarioMB.usuario.ativo}"/>        			
+		        				<h:outputText value="Manual do Usuário" />
+                                <h:outputText value="Funções:" />
+		        				<p:selectManyMenu id="basic" value="#{usuarioMB.usuario.funcoes}">
+		        					<f:selectItems value="usuarioMB.funcaoList" />
+								</p:selectManyMenu>                                
                         </p:panelGrid>
-                        <p:commandButton value="Salvar" actionListener="#{resumoUsuariosMB.alterar}" update=":formPrincipal:usuariosTable" oncomplete="dialogAlterar.hide()" >
+                        <p:commandButton value="Salvar" actionListener="#{usuarioMB.alterar}" update=":formPrincipal:usuariosTable" oncomplete="dialogAlterar.hide()" >
 						</p:commandButton>                                
                 </p:dialog>
         </h:form>
@@ -63,14 +72,26 @@
         <h:form id="formCadastrar">
                 <p:dialog header="Cadastrar" widgetVar="dialogCadastrar" modal="true" id="Cadastrar">
                         <p:panelGrid id="panelCadastrar" columns="2">
+                                <h:outputText value="Username:" />
+                                <p:inputText value="#{usuarioMB.usuario.username}" />
+                                <h:outputText value="Senha:" />
+                                <p:inputText value="#{usuarioMB.usuario.senha}" />
                                 <h:outputText value="Nome:" />
-                                <p:inputText value="#{resumoUsuariosMB.resumoUsuarios.nome}" />
-                                <h:outputText value="Descrição:" />
-                                <p:inputTextarea rows="6" cols="33" value="#{resumoUsuariosMB.resumoUsuarios.descricao}"/>
-                                <h:outputText value="Responsabilidades:" />
-                                <p:inputTextarea rows="6" cols="33" value="#{resumoUsuariosMB.resumoUsuarios.responsabilidades}"/>
+                                <p:inputText value="#{usuarioMB.usuario.nome}" />
+                                <h:outputText value="Email:" />
+                                <p:inputText value="#{usuarioMB.usuario.email}" />
+                                <h:outputText value="Telefone:" />
+                                <p:inputText value="#{usuarioMB.usuario.telefone}" />
+                                <h:outputText value="Observação:" />
+                                <p:inputTextarea rows="6" cols="33" value="#{usuarioMB.usuario.observacao}"/>
+		        				<p:selectBooleanCheckbox value="#{usuarioMB.usuario.ativo}"/>        			
+		        				<h:outputText value="Ativo" />
+                                <h:outputText value="Funções:" />
+		        				<p:selectManyMenu id="basic" value="#{usuarioMB.usuario.funcoes}" showCheckbox="true">
+		        					<f:selectItems value="#{usuarioMB.funcaoList}" var="funcao" itemLabel="#{funcao.nome}" itemValue="#{funcao}" />
+								</p:selectManyMenu>                                
                         </p:panelGrid>
-                        <p:commandButton value="Cadastrar" actionListener="#{resumoUsuariosMB.cadastrar}" update=":formPrincipal:usuariosTable" oncomplete="dialogCadastrar.hide()" >
+                        <p:commandButton value="Cadastrar" actionListener="#{usuarioMB.cadastrar}" update=":formPrincipal:usuariosTable" oncomplete="dialogCadastrar.hide()" >
 						</p:commandButton>                                
                 </p:dialog>
         </h:form>
@@ -78,12 +99,12 @@
 
         <h:form id="formExcluir">
                 <p:confirmDialog id="Excluir"
-                        message="Você gostaria de Deletar o usuário #{resumoUsuariosMB.resumoUsuarios.nome}?"
+                        message="Você gostaria de Deletar o usuario #{usuarioMB.usuario.nome}?"
                         header="Excluir" severity="alert" widgetVar="confirmation">
  
                         <p:commandButton id="confirm" value="Sim"
                                 oncomplete="confirmation.hide()"
-                                actionListener="#{resumoUsuariosMB.excluir}"
+                                actionListener="#{usuarioMB.excluir}"
                                 update=":formPrincipal:usuariosTable" />
                         <p:commandButton id="decline" value="Não"
                                 onclick="confirmation.hide()" type="button" />

@@ -21,4 +21,9 @@ public class Funcao extends AbstractEntity {
 		this.nome = nome;
 	}
 
+	@Override
+	public String toString() {
+		return nome;
+	}
+
 }

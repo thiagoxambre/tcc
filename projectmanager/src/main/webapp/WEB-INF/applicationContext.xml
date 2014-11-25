@@ -39,7 +39,7 @@
             </props>
         </property>
     </bean>
-
+<!-- 
     <security:http auto-config="true" use-expressions="true">
         <security:intercept-url pattern="/index.jsf" access="hasRole('ROLE_USER')"/>
         <security:form-login login-page="/login.jsf" authentication-failure-url="/login.jsf?erro=true"/>
@@ -54,7 +54,7 @@
         </security:authentication-provider>
     </security:authentication-manager>
 
-
+ -->
 	<bean id="projetoDAO" class="br.com.projectmanager.dao.ProjetoDAO">
         <property name="sessionFactory" ref="SessionFactory" />
     </bean>

@@ -18,7 +18,7 @@ import br.com.projectmanager.service.ResumoUsuariosService;
 public class ResumoUsuariosController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final String LISTA = "listausuarios";
+	private static final String LISTA = "listaresumousuarios";
 	
 	@ManagedProperty(value="#{ResumoUsuariosService}")
 	ResumoUsuariosService resumoUsuariosService;

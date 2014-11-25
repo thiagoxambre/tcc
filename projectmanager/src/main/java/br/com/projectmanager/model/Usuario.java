@@ -2,6 +2,7 @@ package br.com.projectmanager.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
@@ -36,8 +37,8 @@ public class Usuario extends AbstractEntity {
 	@Column(name="OBSERVACAO")
 	private String observacao;
 	
-    @ManyToMany
-    @JoinTable(name = "USUARIO_FUNCAO", joinColumns = @JoinColumn(name = "USUARIO_ID"), inverseJoinColumns = @JoinColumn(name = "FUNCAO_ID"))	
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name = "USUARIO_FUNCAO", joinColumns = @JoinColumn(name = "USUARIO_ID",columnDefinition="INT(11)",referencedColumnName="ID"), inverseJoinColumns = @JoinColumn(name = "FUNCAO_ID",columnDefinition="INT(11)",referencedColumnName="ID"))	
 	private List<Funcao> funcoes;
 
 	public String getUsername() {
@@ -104,5 +105,12 @@ public class Usuario extends AbstractEntity {
 		this.funcoes = funcoes;
 	}
 
+	public void addFuncao(Funcao funcao) {
+		funcoes.add(funcao);
+	}
+	
+	public void removeFuncao(Funcao funcao) {
+		funcoes.remove(funcao);
+	}
 
 }

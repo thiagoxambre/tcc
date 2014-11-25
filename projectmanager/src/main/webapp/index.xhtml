@@ -51,6 +51,7 @@
         </p:dataTable>
 			<p:commandButton value="Cadastrar" id="cadastrar" oncomplete="dialogCadastrar.show()" update=":formCadastrar:Cadastrar" >
     		</p:commandButton>
+            <p:commandButton value="Usuários" action="#{usuarioMB.listarUsuarios}"  ajax="false" />
     </h:form>
 
     <h:form id="formAlterar">
